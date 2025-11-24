@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Communication Alliance</title>
+
     <style>
         body {
             margin: 0;
@@ -11,47 +12,89 @@
             background-color: #000;
             color: #fff;
         }
+
+        /* ========= HEADER ========= */
         header {
             background-color: #000;
             padding: 40px;
             text-align: center;
             border-bottom: 2px solid cyan;
         }
+
+        header img {
+            width: 90px;
+            display: block;
+            margin: 0 auto 15px auto;
+            filter: drop-shadow(0 0 8px cyan);
+        }
+
         header h1 {
             color: cyan;
             font-size: 42px;
             margin: 0;
+            text-shadow: 0 0 8px cyan;
         }
+
+        /* ========= EFEITO NEON (NOVA FUNÇÃO) ========= */
+        .neon-border {
+            border: 2px solid cyan;
+            box-shadow:
+                0 0 8px cyan,
+                0 0 16px cyan,
+                0 0 30px cyan;
+        }
+
+        /* ========= SEÇÕES ========= */
         section {
             padding: 50px 20px;
             max-width: 1000px;
             margin: auto;
         }
-        .produto {
+
+        .produto, .espaco {
             background-color: #111;
-            border: 2px solid cyan;
             border-radius: 12px;
             padding: 30px;
+            margin-bottom: 50px;
         }
-        .produto h2 {
-            color: cyan;
-            font-size: 32px;
-        }
-        .produto img {
+
+        /* ========= IMAGENS ========= */
+        .produto img, 
+        .espaco img {
             width: 100%;
             border-radius: 10px;
             margin-top: 20px;
             border: 2px solid cyan;
+            transition: 0.4s ease;
         }
+
+        /* animação hover */
+        .produto img:hover,
+        .espaco img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px cyan;
+        }
+
+        /* ========= ANIMAÇÕES AO ROLAR ========= */
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========= CONTATO ========= */
         .contato {
             background-color: #0a0a0a;
             border-top: 2px solid cyan;
             text-align: center;
             padding-bottom: 80px;
         }
-        a {
-            color: cyan;
-        }
+
         footer {
             text-align: center;
             border-top: 2px solid cyan;
@@ -64,15 +107,18 @@
 <body>
 
 <header>
+    <img src="logo.png" alt="Logo da marca">
     <h1>Communication Alliance</h1>
     <p>Inovação em acessibilidade e tecnologia</p>
 </header>
 
-<section class="produto">
-    <h2>Bengala Inteligente</h2>
+<!-- SEÇÃO DA BENGALA -->
+<section class="produto neon-border scroll-animation">
+    <h2 style="color: cyan; font-size: 32px;">Bengala Inteligente</h2>
+
     <p>
         A Bengala Inteligente foi desenvolvida para proporcionar mais segurança, autonomia e acessibilidade para pessoas com deficiência visual.
-        Com sensores integrados, vibração de alerta e um preço bem econômico, não deixando faltar segurança e conforto para o portador, ela combina tecnologia e utilidade para o dia a dia.
+        Com sensores integrados, vibração de alerta e material ergonômico, ela combina tecnologia, conforto e um preço acessível.
     </p>
 
     <ul>
@@ -84,17 +130,25 @@
 
     <h3 style="color: cyan; margin-top: 30px;">Preço: <span style="color: white;">A definir</span></h3>
 
-    <!-- IMAGENS DECORATIVAS ENVIADAS PELO USUÁRIO -->
-    <img src="WhatsApp Image 2025-11-24 at 12.57.44.png" alt="Ilustração 1">
-<p style="color:cyan; text-align:center; margin-top:10px;">Nosso espaço utiliza iluminação inteligente em tons preto e ciano para reforçar a identidade tecnológica da marca.</p>
-    <img src="WhatsApp Image 2025-11-24 at 12.57.45 (1).png" alt="Ilustração 2">
-<p style="color:cyan; text-align:center; margin-top:10px;">Ambiente altamente tecnológico mostrando que de fato focamos em ajudar e promover maior confortabilidade aos clientes.</p>
-    
-    <img src="WhatsApp Image 2025-11-24 at 12.58.49.png" alt="Ilustração 4">
-<p style="color:cyan; text-align:center; margin-top:10px;">Nossa fachada reflete o compromisso com inovação e acessibilidade, destacando o estilo futurista da marca.</p>
+    <!-- ESPAÇO PARA A IMAGEM DA BENGALA -->
+    <img src="bengala.png" alt="Imagem da Bengala Inteligente">
 </section>
 
-<section class="contato">
+<!-- SEÇÃO DO ESPAÇO FÍSICO -->
+<section class="espaco neon-border scroll-animation">
+    <h2 style="color: cyan; text-align: center;">Nosso Espaço</h2>
+
+    <img src="WhatsApp Image 2025-11-24 at 12.57.44.png" alt="Espaço 1">
+    <p style="color: cyan; text-align: center;">Nosso espaço utiliza iluminação inteligente em tons preto e ciano, reforçando a identidade tecnológica da marca.</p>
+
+    <img src="WhatsApp Image 2025-11-24 at 12.57.45 (1).png" alt="Espaço 2">
+    <p style="color: cyan; text-align: center;">Ambiente moderno e altamente tecnológico projetado para oferecer conforto e inovação aos visitantes.</p>
+
+    <img src="WhatsApp Image 2025-11-24 at 12.58.49.png" alt="Fachada">
+    <p style="color: cyan; text-align: center;">Nossa fachada transmite o compromisso com acessibilidade, tecnologia e design futurista.</p>
+</section>
+
+<section class="contato scroll-animation">
     <h2 style="color: cyan;">Contato</h2>
     <p>Email: <a href="mailto:boninvestidor@gmail.com">boninvestidor@gmail.com</a></p>
     <p>WhatsApp: <a href="https://wa.me/5511917655256">(11) 91765-5256</a></p>
@@ -103,6 +157,26 @@
 <footer>
     Communication Alliance © 2025 — Todos os direitos reservados.
 </footer>
+
+<!-- SCRIPT PARA ANIMAÇÃO AO ROLAR A PÁGINA -->
+<script>
+    const elements = document.querySelectorAll('.scroll-animation');
+
+    function checkAnimation() {
+        const triggerBottom = window.innerHeight * 0.85;
+
+        elements.forEach(el => {
+            const boxTop = el.getBoundingClientRect().top;
+
+            if (boxTop < triggerBottom) {
+                el.classList.add('visible');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', checkAnimation);
+    window.addEventListener('load', checkAnimation);
+</script>
 
 </body>
 </html>
