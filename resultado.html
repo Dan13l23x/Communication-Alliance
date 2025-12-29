@@ -8,44 +8,47 @@
 <body>
 
 <div class="app">
-
   <h1>🧠 Seu Resultado</h1>
 
-  <div id="resultado" style="font-size:20px; margin-top:20px;"></div>
+  <p id="resultado"></p>
 
-  <div class="box" style="margin-top:30px; background:#1e1e1e; padding:20px; border-radius:12px;">
-    <h3>🔒 Análise Cognitiva</h3>
+  <div class="box">
+    <h3>Análise Cognitiva</h3>
     <p id="analise"></p>
   </div>
 
-  <button style="margin-top:30px;">
-    🔓 Desbloquear Resultado Completo
+  <button onclick="alert('Versão completa em breve')">
+    🔒 Desbloquear análise completa
   </button>
-
 </div>
 
 <script>
-  const score = Number(localStorage.getItem("score"));
-  const qi = 85 + score * 5;
+  const score = Number(localStorage.getItem("score")) || 0;
+  const total = 10;
 
-  document.getElementById("resultado").innerHTML = `
-    ✔️ Acertos: <b>${score}/10</b><br>
-    🧠 QI estimado: <b>${qi}</b>
+  const qi = 90 + score * 4;
+
+  const resultado = document.getElementById("resultado");
+  const analise = document.getElementById("analise");
+
+  resultado.innerHTML = `
+    Você acertou <b>${score}</b> de <b>${total}</b> questões.<br>
+    QI estimado: <b>${qi}</b>
   `;
 
-  let analise = "";
+  let texto = "";
 
-  if (qi < 90) {
-    analise = "Seu desempenho indica raciocínio básico, com bom potencial de evolução através de treino cognitivo.";
-  } else if (qi < 110) {
-    analise = "Você possui raciocínio lógico dentro da média, com boa capacidade de aprendizado e resolução de problemas.";
-  } else if (qi < 125) {
-    analise = "Seu resultado indica inteligência acima da média, com forte capacidade analítica e pensamento rápido.";
+  if (qi >= 130) {
+    texto = "Perfil cognitivo muito acima da média. Raciocínio lógico e abstração avançados.";
+  } else if (qi >= 115) {
+    texto = "Excelente capacidade de análise e reconhecimento de padrões complexos.";
+  } else if (qi >= 100) {
+    texto = "Raciocínio lógico consistente, dentro da média superior.";
   } else {
-    analise = "Resultado excepcional. Você demonstra habilidades cognitivas avançadas e pensamento altamente estratégico.";
+    texto = "Capacidade cognitiva funcional, com espaço claro para evolução.";
   }
 
-  document.getElementById("analise").innerHTML = analise;
+  analise.textContent = texto;
 </script>
 
 </body>
