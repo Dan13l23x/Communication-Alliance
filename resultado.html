@@ -17,15 +17,13 @@
     <p id="analise"></p>
   </div>
 
-  <button onclick="alert('Versão completa em breve')">
-    🔒 Desbloquear análise completa
-  </button>
 </div>
 
 <script>
   const score = Number(localStorage.getItem("score")) || 0;
   const total = 10;
 
+  // Cálculo do QI estimado
   const qi = 90 + score * 4;
 
   const resultado = document.getElementById("resultado");
@@ -36,6 +34,7 @@
     QI estimado: <b>${qi}</b>
   `;
 
+  // Análise cognitiva completa (sempre gratuita)
   let texto = "";
 
   if (qi >= 130) {
