@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado • NeuroScore</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <h1>🧠 Seu Resultado</h1>
+
+  <div id="resultado" style="font-size:20px; margin-top:20px;"></div>
+
+  <div class="box" style="margin-top:30px; background:#1e1e1e; padding:20px; border-radius:12px;">
+    <h3>🔒 Análise Cognitiva</h3>
+    <p id="analise"></p>
+  </div>
+
+  <button style="margin-top:30px;">
+    🔓 Desbloquear Resultado Completo
+  </button>
+
+</div>
+
+<script>
+  const score = Number(localStorage.getItem("score"));
+  const qi = 85 + score * 5;
+
+  document.getElementById("resultado").innerHTML = `
+    ✔️ Acertos: <b>${score}/10</b><br>
+    🧠 QI estimado: <b>${qi}</b>
+  `;
+
+  let analise = "";
+
+  if (qi < 90) {
+    analise = "Seu desempenho indica raciocínio básico, com bom potencial de evolução através de treino cognitivo.";
+  } else if (qi < 110) {
+    analise = "Você possui raciocínio lógico dentro da média, com boa capacidade de aprendizado e resolução de problemas.";
+  } else if (qi < 125) {
+    analise = "Seu resultado indica inteligência acima da média, com forte capacidade analítica e pensamento rápido.";
+  } else {
+    analise = "Resultado excepcional. Você demonstra habilidades cognitivas avançadas e pensamento altamente estratégico.";
+  }
+
+  document.getElementById("analise").innerHTML = analise;
+</script>
+
+</body>
+</html>
