@@ -1,14 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Resultado • NeuroScore</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<title>Resultado • NeuroScore</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  body {
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background:#000;
+    color:#fff;
+  }
+  .app {
+    max-width:900px;
+    margin:auto;
+    padding:30px;
+  }
+  h1, h2, h3 {
+    text-align:center;
+    color:#00ff99;
+    text-shadow: 0 0 10px #00ff99;
+  }
+  #resultado {
+    text-align:center;
+    font-size:20px;
+    margin-bottom:30px;
+  }
+  .box {
+    background:#111;
+    border:1px solid #00ff99;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,255,153,0.3);
+    margin-bottom:40px;
+  }
+  #chartContainer {
+    max-width:600px;
+    margin:40px auto;
+  }
+  .tips {
+    background:#111;
+    border:1px solid #00ff99;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,255,153,0.3);
+  }
+  ul {
+    padding-left:20px;
+  }
+</style>
 </head>
 <body>
 
 <div class="app">
-  <h1>🧠 Seu Resultado</h1>
+  <h1>🧠 Resultado do NeuroScore</h1>
 
   <p id="resultado"></p>
 
@@ -17,49 +62,114 @@
     <p id="analise"></p>
   </div>
 
+  <div id="chartContainer">
+    <canvas id="qiChart"></canvas>
+  </div>
+
+  <div class="tips">
+    <h3>Dicas de Treino Mental</h3>
+    <ul id="dicas"></ul>
+  </div>
 </div>
 
 <script>
   const score = Number(localStorage.getItem("score")) || 0;
   const total = 10;
 
-  // Cálculo do QI estimado
   const qi = 90 + score * 4;
-
   const resultado = document.getElementById("resultado");
   const analise = document.getElementById("analise");
+  const dicasList = document.getElementById("dicas");
 
   resultado.innerHTML = `
     Você acertou <b>${score}</b> de <b>${total}</b> questões.<br>
     QI estimado: <b>${qi}</b>
   `;
 
-  // Análise cognitiva detalhada
+  // Análise detalhada
   let texto = "";
+  let dicas = [];
 
-  if (qi >= 130) {
-    texto = `Seu perfil cognitivo indica uma inteligência muito acima da média. Você apresenta habilidades excepcionais em raciocínio lógico, 
-    resolução de problemas complexos e pensamento abstrato. Sua memória de trabalho e capacidade de análise são elevadas, permitindo 
-    que você identifique padrões rapidamente e encontre soluções criativas para desafios complicados. Este é um excelente momento 
-    para se dedicar a atividades que estimulem sua mente, como estudos avançados, quebra-cabeças complexos e projetos de alta exigência intelectual.`;
-  } else if (qi >= 115) {
-    texto = `Você possui uma capacidade cognitiva acima da média. Seu raciocínio lógico e habilidades analíticas são fortes, permitindo 
-    que você compreenda informações complexas com facilidade. Sua memória é confiável, e você consegue aplicar conhecimento prévio 
-    de forma prática. Continue desafiando sua mente com exercícios de lógica, leituras avançadas e atividades que estimulem criatividade 
-    e pensamento crítico para alcançar todo o seu potencial.`;
-  } else if (qi >= 100) {
-    texto = `Seu QI indica habilidades cognitivas dentro da média superior. Você apresenta bom raciocínio lógico, memória funcional e 
-    capacidade de concentração consistente. É provável que você consiga resolver problemas cotidianos de forma eficiente e compreender 
-    conceitos intermediários com facilidade. Para melhorar ainda mais, pratique exercícios que desafiem sua memória, atenção e lógica, 
-    incorporando novas estratégias de aprendizado.`;
+  if(qi >= 130){
+    texto = `Você possui inteligência muito acima da média, com habilidades excepcionais em raciocínio lógico, memória, criatividade e atenção. 
+    Capacidade de resolver problemas complexos rapidamente e abstrair conceitos avançados. Continue se desafiando com atividades cognitivas de alta complexidade.`;
+    dicas = [
+      "Resolva quebra-cabeças complexos diariamente",
+      "Estude tópicos avançados e interdisciplinarmente",
+      "Pratique meditação e mindfulness para foco extremo",
+      "Ensine ou explique conceitos complexos a outras pessoas"
+    ];
+  } else if(qi >= 115){
+    texto = `Sua inteligência está acima da média, com bom raciocínio lógico e memória confiável. Capacidade de análise consistente e criatividade aplicada.`;
+    dicas = [
+      "Faça exercícios de lógica e matemática regularmente",
+      "Use mapas mentais para organizar informações",
+      "Pratique leitura crítica e resumo de conteúdos",
+      "Participe de debates ou discussões intelectuais"
+    ];
+  } else if(qi >= 100){
+    texto = `Você apresenta inteligência média superior, com bom raciocínio, atenção e memória funcional. Pode melhorar com práticas contínuas.`;
+    dicas = [
+      "Treine memória com associação de ideias",
+      "Resolva problemas de lógica regularmente",
+      "Exercite concentração com técnicas de Pomodoro",
+      "Aprenda algo novo semanalmente"
+    ];
   } else {
-    texto = `Sua avaliação indica um potencial cognitivo funcional, com espaço claro para desenvolvimento. Isso não significa incapacidade, 
-    mas sim uma oportunidade de aprimorar suas habilidades. Trabalhar em exercícios de memória, raciocínio lógico, atenção e resolução 
-    de problemas ajudará a elevar sua capacidade mental. O aprendizado contínuo e desafios diários são fundamentais para estimular 
-    a plasticidade cerebral e melhorar seu desempenho cognitivo ao longo do tempo.`;
+    texto = `Seu QI indica capacidade cognitiva funcional, com espaço para evolução. É hora de treinar foco, memória e raciocínio com consistência.`;
+    dicas = [
+      "Faça exercícios de memória simples todos os dias",
+      "Treine atenção com leituras concentradas",
+      "Resolva quebra-cabeças e jogos de lógica",
+      "Inclua novos aprendizados constantemente"
+    ];
   }
 
   analise.textContent = texto;
+
+  dicas.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    dicasList.appendChild(li);
+  });
+
+  // Gráfico de desempenho por área cognitiva
+  const ctx = document.getElementById('qiChart').getContext('2d');
+  const qiChart = new Chart(ctx, {
+    type:'radar',
+    data:{
+      labels:['Raciocínio Lógico','Memória','Atenção/Foco','Criatividade'],
+      datasets:[{
+        label:'Pontuação Cognitiva',
+        data:[
+          Math.min(qi,160)/160*100, // Raciocínio
+          Math.min(qi,160)/160*90,  // Memória
+          Math.min(qi,160)/160*95,  // Atenção
+          Math.min(qi,160)/160*85   // Criatividade
+        ],
+        backgroundColor:'rgba(0,255,153,0.2)',
+        borderColor:'#00ff99',
+        pointBackgroundColor:'#00ff99',
+        pointBorderColor:'#fff',
+        pointHoverBackgroundColor:'#fff',
+        pointHoverBorderColor:'#00ff99'
+      }]
+    },
+    options:{
+      responsive:true,
+      scales:{
+        r:{
+          angleLines:{color:'#333'},
+          grid:{color:'#333'},
+          pointLabels:{color:'#fff', font:{size:14}}
+        }
+      },
+      plugins:{
+        legend:{labels:{color:'#00ff99'}}
+      }
+    }
+  });
+
 </script>
 
 </body>
