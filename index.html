@@ -8,21 +8,41 @@
 <body>
 
 <div class="app">
-
-  <header>
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Cérebro">
-    <h1>Teste de QI • NeuroScore</h1>
-    <p>Descubra seu potencial cognitivo</p>
+  <header class="hero">
+    <div class="logo">
+      <div class="logo-mark" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div>
+        <p class="logo-tag">NeuroScore</p>
+        <h1>Teste de Raciocínio Extremo</h1>
+      </div>
+    </div>
+    <p class="subtitle">Avaliação de alto nível em lógica, abstração e precisão. Cada questão exige concentração total.</p>
+    <div class="meta">
+      <span>20 questões</span>
+      <span>•</span>
+      <span>Dificuldade máxima</span>
+      <span>•</span>
+      <span>Tempo recomendado: 25-35 min</span>
+    </div>
   </header>
 
-  <div class="progress">
-    <div id="progress-bar"></div>
-  </div>
+  <section class="status">
+    <div class="progress">
+      <div id="progress-bar"></div>
+    </div>
+    <div class="status-info">
+      <p id="question-counter">Questão 1 de 20</p>
+      <p class="status-tip">Escolha com cuidado. Não há retorno às questões anteriores.</p>
+    </div>
+  </section>
 
   <div id="quiz-container"></div>
 
-  <button id="nextBtn" onclick="nextQuestion()">Próxima</button>
-
+  <button id="nextBtn" onclick="nextQuestion()" disabled>Próxima questão</button>
 </div>
 
 <script src="js/quiz.js"></script>
